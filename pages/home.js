@@ -6,11 +6,12 @@ import GroupIcon from "@mui/icons-material/Group";
 import OndemandVideoSharpIcon from "@mui/icons-material/OndemandVideoSharp";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { getProviders, signIn } from "next-auth/react";
 
 import HeaderLink from "../components/HeaderLink";
 import Head from "next/head";
 
-export default function Home() {
+export default function Home({ providers }) {
   return (
     <div className="space-y-10 relative">
       <Head>
@@ -29,11 +30,18 @@ export default function Home() {
             <HeaderLink Icon={OndemandVideoSharpIcon} text="Learning" />
             <HeaderLink Icon={BusinessCenterIcon} text="Jobs" />
           </div>
-          <div className="pl-4">
-            <button className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-2 hover:border-2 transition-all duration-200 ease-out">
-              Sign In
-            </button>
-          </div>
+          {Object.values(providers).map((provider) => (
+            <div key={provider.name}>
+              <div className="pl-4">
+                <button
+                  className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5 transition-all hover:border-2"
+                  onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+                >
+                  Sign in
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </header>
 
@@ -63,4 +71,14 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const providers = await getProviders();
+
+  return {
+    props: {
+      providers,
+    },
+  };
 }
