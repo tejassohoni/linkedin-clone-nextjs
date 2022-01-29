@@ -26,7 +26,7 @@ export default function Header() {
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
   return (
-    <header className="sticky top-0 z-40 bg-white dark:bg-[#1D2226] flex items-center justify-around py-1.5 px-3 focus-within:shadow-lg transition-all duration-200">
+    <header className="sticky top-0 z-40 bg-white dark:bg-[#1D2226] flex items-center justify-around py-1.5 px-3 focus-within:shadow-lg smoothTransition">
       {/* Left */}
       <div className="flex items-center space-x-2 w-full max-w-xs">
         {mounted && (

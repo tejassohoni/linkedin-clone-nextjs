@@ -12,7 +12,7 @@ export default function HeaderLink({
     <div
       className={`${
         hidden && "hidden md:inline-flex"
-      } cursor-pointer flex flex-col justify-center items-center transition duration-200 ease-out ${
+      } cursor-pointer flex flex-col justify-center items-center smoothTransition ${
         feed
           ? "text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white lg:-mb-1.5 spacce-y-1"
           : "text-gray-500 hover:text-gray-700"
