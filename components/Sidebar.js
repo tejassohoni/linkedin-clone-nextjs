@@ -4,8 +4,10 @@ import React from "react";
 
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Sidebar() {
+  const { data: session } = useSession();
   return (
     <div className="space-y-2 min-w-max max-w-lg">
       {/* Top */}
@@ -14,16 +16,16 @@ export default function Sidebar() {
           <Image src="https://rb.gy/i26zak" layout="fill" priority />
         </div>
         <Avatar
-          //onClick={signOut}
-          src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
+          onClick={signOut}
+          src={session?.user?.image}
           className="!h-14 !w-14 !border-2 !absolute !top-5 !cursor-pointer"
         />
         <div className="mt-5 py-4 space-y-1">
           <h4 className="opacity-100 hover:opacity-80 cursor-pointer smoothTransition">
-            Username
+            {session.user.name}
           </h4>
           <p className="text-black/60 dark:text-white/75 test-sm ">
-            elonmusk@gmail.com
+            {session.user.email}
           </p>
         </div>
         <div className="hidden md:inline text-left dark:text-white/75 text-sm py-2">

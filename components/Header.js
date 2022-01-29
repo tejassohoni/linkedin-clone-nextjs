@@ -13,6 +13,7 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import { Avatar } from "@mui/material";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 const spring = {
   type: "spring",
@@ -21,6 +22,8 @@ const spring = {
 };
 
 export default function Header() {
+  const { data: session } = useSession();
+  console.log(session.user);
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme, theme } = useTheme();
   // After mounting, we have access to the theme
@@ -53,7 +56,7 @@ export default function Header() {
         <HeaderLink Icon={BusinessCenterIcon} text="Jobs" feed hidden />
         <HeaderLink Icon={ChatIcon} text="Messaging" feed />
         <HeaderLink Icon={NotificationsIcon} text="Notifications" feed />
-        <HeaderLink Icon={Avatar} text="Me" feed avatar hidden />
+        <HeaderLink Icon={Avatar} text={session.user.name} feed avatar hidden />
         <HeaderLink Icon={AppsOutlinedIcon} text="Work" feed hidden />
 
         {/* Dark mode toggle */}
